@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack ADT Question Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+        #question {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stack ADT Question Generator</h1>
+    <form id="questionForm">
+        <label for="topic">Select Topic:</label>
+        <select id="topic" name="topic">
+            <option value="Stack ADT">Stack ADT</option>
+        </select>
+
+        <label for="subtopic">Select Subtopic:</label>
+        <select id="subtopic" name="subtopic">
+            <option value="Introduction">Introduction</option>
+            <option value="Operations">Operations</option>
+            <option value="Implementation">Implementation</option>
+            <option value="Applications">Applications</option>
+        </select>
+
+        <label for="difficulty">Select Difficulty Level:</label>
+        <select id="difficulty" name="difficulty">
+            <option value="Level 1">Level 1</option>
+            <option value="Level 2">Level 2</option>
+            <option value="Level 3">Level 3</option>
+            <option value="Level 4">Level 4</option>
+        </select>
+
+        <button type="button" onclick="generateQuestion()">
+            <i class="fas fa-question-circle"></i> Generate Question
+        </button>
+    </form>
+
+    <h2>Generated Question:</h2>
+    <p id="question"></p>
+
+    <script>
+        function generateQuestion() {
+            const form = document.getElementById("questionForm");
+            const formData = new FormData(form);
+            fetch("/generate", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("question").innerText = data.question;
+            });
+        }
+    </script>
+</body>
+</html>
